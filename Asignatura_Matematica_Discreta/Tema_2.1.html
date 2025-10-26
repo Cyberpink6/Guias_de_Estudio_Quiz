@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz - Métodos de Conteo</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+        }
+        
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 15px;
+        }
+        
+        .intro {
+            background-color: #e8f4fc;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+        
+        .question {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+        }
+        
+        .question h3 {
+            margin-top: 0;
+            color: #2c3e50;
+        }
+        
+        .options {
+            margin: 15px 0;
+        }
+        
+        .option {
+            margin: 10px 0;
+            padding: 10px;
+            background-color: white;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .option:hover {
+            background-color: #f0f8ff;
+            border-color: #3498db;
+        }
+        
+        .option.selected {
+            background-color: #d4edda;
+            border-color: #28a745;
+        }
+        
+        .option.incorrect {
+            background-color: #f8d7da;
+            border-color: #dc3545;
+        }
+        
+        button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            display: block;
+            margin: 30px auto;
+            transition: background-color 0.3s;
+        }
+        
+        button:hover {
+            background-color: #2980b9;
+        }
+        
+        .result {
+            display: none;
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #e8f4fc;
+            border-radius: 8px;
+        }
+        
+        .score {
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            margin: 20px 0;
+            color: #2c3e50;
+        }
+        
+        .feedback {
+            margin-top: 20px;
+        }
+        
+        .correct-answer {
+            color: #28a745;
+            font-weight: bold;
+        }
+        
+        .incorrect-answer {
+            color: #dc3545;
+            font-weight: bold;
+        }
+        
+        .explanation {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: white;
+            border-radius: 5px;
+            border-left: 4px solid #3498db;
+        }
+        
+        .multiple-note {
+            font-size: 14px;
+            color: #666;
+            font-style: italic;
+            margin-top: 5px;
+        }
+        
+        .grade-description {
+            text-align: center;
+            font-size: 18px;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        
+        .grade-2 {
+            color: #dc3545;
+        }
+        
+        .grade-3 {
+            color: #fd7e14;
+        }
+        
+        .grade-4 {
+            color: #20c997;
+        }
+        
+        .grade-5 {
+            color: #198754;
+        }
+        
+        .correct-feedback {
+            margin-top: 10px;
+            padding: 8px;
+            background-color: #d4edda;
+            border-radius: 5px;
+            border-left: 4px solid #28a745;
+        }
+        
+        .incorrect-feedback {
+            margin-top: 10px;
+            padding: 8px;
+            background-color: #f8d7da;
+            border-radius: 5px;
+            border-left: 4px solid #dc3545;
+        }
+        
+        .answer-list {
+            margin-top: 5px;
+            padding-left: 20px;
+        }
+        
+        .answer-item {
+            margin: 5px 0;
+        }
+        
+        .restart-btn {
+            background-color: #2ecc71;
+            margin-top: 20px;
+        }
+        
+        .restart-btn:hover {
+            background-color: #27ae60;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Tema 2 - Conferencia 2: Métodos de Conteo</h1>
+        <div class="intro">
+            <a href="Tema_1.html"><p>Ir al quiz del Tema 1 - Conferencia 1</p></a>
+            <a href="Tema_2.2.html"><p>Ir al quiz del Tema 2 - Conferencia 3</p></a>
+            <a href="Tema_3.html"><p>Ir al quiz del Tema 3 - Conferencia 4</p></a>
+        </div>
+
+        <form id="quiz-form">
+            <!-- Pregunta 1 -->
+            <div class="question">
+                <h3>1. Un restaurante ofrece 3 tipos de plato principal, 4 tipos de guarnición y 2 tipos de postre. Si un cliente quiere pedir un plato principal, una guarnición y un postre, ¿cuántas combinaciones diferentes puede elegir?</h3>
+                <div class="options">
+                    <div class="option" data-correct="false">
+                        <input type="checkbox" id="q1a" name="q1">
+                        <label for="q1a">9 combinaciones</label>
+                    </div>
+                    <div class="option" data-correct="true">
+                        <input type="checkbox" id="q1b" name="q1">
+                        <label for="q1b">24 combinaciones</label>
+                    </div>
+                    <div class="option" data-correct="false">
+                        <input type="checkbox" id="q1c" name="q1">
+                        <label for="q1c">12 combinaciones</label>
+                    </div>
+                    <div class="option" data-correct="false">
+                        <input type="checkbox" id="q1d" name="q1">
+                        <label for="q1d">7 combinaciones</label>
+                    </div>
+                </div>
+                <p class="multiple-note">Esta pregunta tiene solo una respuesta correcta.</p>
+            </div>
+            
+            <!-- Pregunta 2 -->
+            <div class="question">
+                <h3>2. ¿Cuáles de las siguientes afirmaciones sobre el principio de la pichonera son correctas?</h3>
+                <div class="options">
+                    <div class="option" data-correct="true">
+                        <input type="checkbox" id="q2a" name="q2">
+                        <label for="q2a">Si n+1 objetos se distribuyen en n cajas, entonces al menos una caja contiene al menos 2 objetos</label>
+                    </div>
+                    <div class="option" data-correct="true">
+                        <input type="checkbox" id="q2b" name="q2">
+                        <label for="q2b">Si kn+1 objetos se distribuyen en n cajas, entonces al menos una caja contiene al menos k+1 objetos</label>
+                    </div>
+                    <div class="option" data-correct="false">
+                        <input type="checkbox" id="q2c" name="q2">
+                        <label for="q2c">Solo se aplica cuando los objetos son idénticos</label>
+                    </div>
+                    <div class="option" data-correct="true">
+                        <input type="checkbox" id="q2d" name="q2">
+                        <label for="q2d">Permite demostrar la existencia de un objeto con ciertas propiedades</label>
+                    </div>
+                </div>
+                <p class="multiple-note">Esta pregunta puede tener varias respuestas correctas.</p>
+            </div>
+            
+            <!-- Pregunta 3 -->
+            <div class="question">
+                <h3>3. Un estudiante puede elegir entre 5 asignaturas de matemáticas y 4 asignaturas de informática. Si debe elegir exactamente una asignatura de matemáticas o exactamente una asignatura de informática, ¿cuántas opciones tiene?</h3>
+                <div class="options">
+                    <div class="option" data-correct="false">
+                        <input type="checkbox" id="q3a" name="q3">
+                        <label for="q3a">20 opciones</label>
+                    </div>
+                    <div class="option" data-correct="true">
+                        <input type="checkbox" id="q3b" name="q3">
+                        <label for="q3b">9 opciones</label>
+                    </div>
+                    <div class="option" data-correct="false">
+                        <input type="checkbox" id="q3c" name="q3">
+                        <label for="q3c">5 opciones</label>
+                    </div>
+                    <div class="option" data-correct="false">
+                        <input type="checkbox" id="q3d" name="q3">
+                        <label for="q3d">4 opciones</label>
+                    </div>
+                </div>
+                <p class="multiple-note">Esta pregunta tiene solo una respuesta correcta.</p>
+            </div>
+            
+            <!-- Pregunta 4 -->
+            <div class="question">
+                <h3>4. ¿Cuáles de los siguientes problemas se resuelven aplicando el principio de multiplicación?</h3>
+                <div class="options">
+                    <div class="option" data-correct="true">
+                        <input type="checkbox" id="q4a" name="q4">
+                        <label for="q4a">Calcular el número de contraseñas de 4 caracteres si cada carácter puede ser una letra o un dígito</label>
+                    </div>
+                    <div class="option" data-correct="true">
+                        <input type="checkbox" id="q4b" name="q4">
+                        <label for="q4b">Calcular el número de formas de elegir un presidente y un vicepresidente de un grupo de 10 personas</label>
+                    </div>
+                    <div class="option" data-correct="true">
+                        <input type="checkbox" id="q4c" name="q4">
+                        <label for="q4c">Calcular el número de rutas diferentes para ir de la ciudad A a la ciudad C pasando por la ciudad B, si hay 3 caminos de A a B y 4 de B a C</label>
+                    </div>
+                    <div class="option" data-correct="false">
+                        <input type="checkbox" id="q4d" name="q4">
+                        <label for="q4d">Calcular el número de formas de elegir 2 frutas diferentes de un conjunto de 5 frutas</label>
+                    </div>
+                </div>
+                <p class="multiple-note">Esta pregunta puede tener varias respuestas correctas.</p>
+            </div>
+            
+            <!-- Pregunta 5 -->
+            <div class="question">
+                <h3>5. En un grupo de 13 personas, ¿cuáles de las siguientes afirmaciones son verdaderas según el principio de la pichonera?</h3>
+                <div class="options">
+                    <div class="option" data-correct="true">
+                        <input type="checkbox" id="q5a" name="q5">
+                        <label for="q5a">Al menos dos personas cumplen años en el mismo mes</label>
+                    </div>
+                    <div class="option" data-correct="false">
+                        <input type="checkbox" id="q5b" name="q5">
+                        <label for="q5b">Todas las personas cumplen años en meses diferentes</label>
+                    </div>
+                    <div class="option" data-correct="true">
+                        <input type="checkbox" id="q5c" name="q5">
+                        <label for="q5c">Si se consideran los 12 meses del año, al menos un mes tiene al menos 2 personas que cumplen años</label>
+                    </div>
+                    <div class="option" data-correct="false">
+                        <input type="checkbox" id="q5d" name="q5">
+                        <label for="q5d">Es posible que todas las personas cumplan años en meses diferentes</label>
+                    </div>
+                </div>
+                <p class="multiple-note">Esta pregunta puede tener varias respuestas correctas.</p>
+            </div>
+            
+            <button type="button" id="submit-btn">Evaluar Respuestas</button>
+        </form>
+        
+        <div class="result" id="result">
+            <div class="score" id="score"></div>
+            <div class="grade-description" id="grade-description"></div>
+            
+            <div class="feedback">
+                <h3>Retroalimentación:</h3>
+                <div id="feedback-content"></div>
+            </div>
+            
+            <button type="button" class="restart-btn" id="restart-btn">Reiniciar Quiz</button>
+        </div>
+    </div>
+
+    <script src="script2.1.obfuscated.js"></script>
+</body>
+</html>
