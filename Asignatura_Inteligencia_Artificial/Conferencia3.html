@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz 3</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+        }
+        
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 15px;
+        }
+        
+        .intro {
+            background-color: #e8f4fc;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+        
+        .question {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+        }
+        
+        .question h3 {
+            margin-top: 0;
+            color: #2c3e50;
+        }
+        
+        .options {
+            margin: 15px 0;
+        }
+        
+        .option {
+            margin: 10px 0;
+            padding: 10px;
+            background-color: white;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .option:hover {
+            background-color: #f0f8ff;
+            border-color: #3498db;
+        }
+        
+        .option.selected {
+            background-color: #d4edda;
+            border-color: #28a745;
+        }
+        
+        .option.incorrect {
+            background-color: #f8d7da;
+            border-color: #dc3545;
+        }
+        
+        button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            display: block;
+            margin: 30px auto;
+            transition: background-color 0.3s;
+        }
+        
+        button:hover {
+            background-color: #2980b9;
+        }
+        
+        .result {
+            display: none;
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #e8f4fc;
+            border-radius: 8px;
+        }
+        
+        .score {
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            margin: 20px 0;
+            color: #2c3e50;
+        }
+        
+        .feedback {
+            margin-top: 20px;
+        }
+        
+        .correct-answer {
+            color: #28a745;
+            font-weight: bold;
+        }
+        
+        .incorrect-answer {
+            color: #dc3545;
+            font-weight: bold;
+        }
+        
+        .explanation {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: white;
+            border-radius: 5px;
+            border-left: 4px solid #3498db;
+        }
+        
+        .multiple-note {
+            font-size: 14px;
+            color: #666;
+            font-style: italic;
+            margin-top: 5px;
+        }
+        
+        .grade-description {
+            text-align: center;
+            font-size: 18px;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        
+        .grade-2 {
+            color: #dc3545;
+        }
+        
+        .grade-3 {
+            color: #fd7e14;
+        }
+        
+        .grade-4 {
+            color: #20c997;
+        }
+        
+        .grade-5 {
+            color: #198754;
+        }
+        
+        .correct-feedback {
+            margin-top: 10px;
+            padding: 8px;
+            background-color: #d4edda;
+            border-radius: 5px;
+            border-left: 4px solid #28a745;
+        }
+        
+        .incorrect-feedback {
+            margin-top: 10px;
+            padding: 8px;
+            background-color: #f8d7da;
+            border-radius: 5px;
+            border-left: 4px solid #dc3545;
+        }
+        
+        .answer-list {
+            margin-top: 5px;
+            padding-left: 20px;
+        }
+        
+        .answer-item {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Inteligencia Artificial: Conferencia 3 - Formas de representación del conocimiento</h1>
+        <div class="intro">
+            <a href="Conferencia1.html"><p>Ir al Quiz 1</p></a>
+            <a href="Conferencia2.html"><p>Ir al Quiz 2</p></a>
+            <a href="Conferencia4.html"><p>Ir al Quiz 4</p></a>
+        </div>
+
+        <form id="quiz-form">
+            <!-- Pregunta 1 -->
+            <div class="question">
+                <h3>1. ¿Cuáles de las siguientes son características de las Reglas de Producción como FRC?</h3>
+                <div class="options">
+                    <div class="option" data-correct="true">
+                        <input type="checkbox" id="q1a" name="q1">
+                        <label for="q1a">Modularidad: cada regla es una unidad independiente de conocimiento</label>
+                    </div>
+                    <div class="option" data-correct="true">
+                        <input type="checkbox" id="q1b" name="q1">
+                        <label for="q1b">Transparencia: pueden explicar el camino que llevó a la solución</label>
+                    </div>
+                    <div class="option" data-correct="false">
+                        <input type="checkbox" id="q1c" name="q1">
+                        <label for="q1c">Son ideales para describir objetos y relaciones estáticas entre ellos</label>
+                    </div>
+                    <div class="option" data-correct="true">
+                        <input type="checkbox" id="q1d" name="q1">
+                        <label for="q1d">Incrementabilidad: se pueden añadir nuevas reglas con relativa independencia</label>
+                    </div>
+                </div>
+                <p class="multiple-note">Esta pregunta puede tener varias respuestas correctas.</p>
+            </div>
+            
+            <!-- Pregunta 2 -->
+            <div class="question">
+                <h3>2. Respecto a los Frames como FRC, ¿cuáles de las siguientes afirmaciones son correctas?</h3>
+                <div class="options">
+                    <div class="option" data-correct="true">
+                        <input type="checkbox" id="q2a" name="q2">
+                        <label for="q2a">Los slots pueden tener facetas como VALUE, PROCEDURE y DEMONS</label>
+                    </div>
+                    <div class="option" data-correct="true">
+                        <input type="checkbox" id="q2b" name="q2">
+                        <label for="q2b">Permiten organizar el conocimiento en una jerarquía con herencia</label>
+                    </div>
+                    <div class="option" data-correct="false">
+                        <input type="checkbox" id="q2c" name="q2">
+                        <label for="q2c">Son especialmente útiles para representar secuencias de eventos</label>
+                    </div>
+                    <div class="option" data-correct="true">
+                        <input type="checkbox" id="q2d" name="q2">
+                        <label for="q2d">Los procedimientos IF-needed se ejecutan cuando cambia el valor de un slot</label>
+                    </div>
+                </div>
+                <p class="multiple-note">Esta pregunta puede tener varias respuestas correctas.</p>
+            </div>
+            
+            <!-- Pregunta 3 -->
+            <div class="question">
+                <h3>3. Sobre los Scripts como FRC, ¿cuáles afirmaciones son verdaderas?</h3>
+                <div class="options">
+                    <div class="option" data-correct="true">
+                        <input type="checkbox" id="q3a" name="q3">
+                        <label for="q3a">Describen secuencias estereotipadas de eventos</label>
+                    </div>
+                    <div class="option" data-correct="true">
+                        <input type="checkbox" id="q3b" name="q3">
+                        <label for="q3b">Incluyen componentes como ROLES, PROPS y SETTING</label>
+                    </div>
+                    <div class="option" data-correct="false">
+                        <input type="checkbox" id="q3c" name="q3">
+                        <label for="q3c">Son ideales para representar conocimiento sobre objetos individuales</label>
+                    </div>
+                    <div class="option" data-correct="true">
+                        <input type="checkbox" id="q3d" name="q3">
+                        <label for="q3d">Pueden ser invocados por precondición, instrumento, local o directamente</label>
+                    </div>
+                </div>
+                <p class="multiple-note">Esta pregunta puede tener varias respuestas correctas.</p>
+            </div>
+            
+            <!-- Pregunta 4 -->
+            <div class="question">
+                <h3>4. En relación con las Redes Semánticas como FRC, ¿cuáles características son correctas?</h3>
+                <div class="options">
+                    <div class="option" data-correct="true">
+                        <input type="checkbox" id="q4a" name="q4">
+                        <label for="q4a">Consisten de nodos conectados por arcos que representan relaciones</label>
+                    </div>
+                    <div class="option" data-correct="true">
+                        <input type="checkbox" id="q4b" name="q4">
+                        <label for="q4b">Utilizan relaciones como "es-un" y "parte-de" para organizar el conocimiento</label>
+                    </div>
+                    <div class="option" data-correct="false">
+                        <input type="checkbox" id="q4c" name="q4">
+                        <label for="q4c">Son especialmente adecuadas para representar acciones y planificación</label>
+                    </div>
+                    <div class="option" data-correct="true">
+                        <input type="checkbox" id="q4d" name="q4">
+                        <label for="q4d">Permiten herencia de propiedades a través de la jerarquía</label>
+                    </div>
+                </div>
+                <p class="multiple-note">Esta pregunta puede tener varias respuestas correctas.</p>
+            </div>
+            
+            <!-- Pregunta 5 -->
+            <div class="question">
+                <h3>5. Sobre STRIPS como FRC para planificación, ¿cuáles afirmaciones son verdaderas?</h3>
+                <div class="options">
+                    <div class="option" data-correct="true">
+                        <input type="checkbox" id="q5a" name="q5">
+                        <label for="q5a">Cada regla tiene precondition, delete list y add list</label>
+                    </div>
+                    <div class="option" data-correct="false">
+                        <input type="checkbox" id="q5b" name="q5">
+                        <label for="q5b">Permite aplicar múltiples acciones simultáneamente sobre diferentes objetos</label>
+                    </div>
+                    <div class="option" data-correct="true">
+                        <input type="checkbox" id="q5c" name="q5">
+                        <label for="q5c">Fue desarrollado originalmente para el robot SHAKEY</label>
+                    </div>
+                    <div class="option" data-correct="true">
+                        <input type="checkbox" id="q5d" name="q5">
+                        <label for="q5d">Las acciones transforman un estado del universo en otro</label>
+                    </div>
+                </div>
+                <p class="multiple-note">Esta pregunta puede tener varias respuestas correctas.</p>
+            </div>
+            
+            <button type="button" id="submit-btn">Evaluar Respuestas</button>
+        </form>
+        
+        <div class="result" id="result">
+            <div class="score" id="score"></div>
+            <div class="grade-description" id="grade-description"></div>
+            
+            <div class="feedback">
+                <h3>Retroalimentación:</h3>
+                <div id="feedback-content"></div>
+            </div>
+            <button type="button" class="restart-btn" id="restart-btn">Reiniciar Quiz</button>
+        </div>
+    </div>
+
+    <script src="script1.obfuscated.js"></script>
+</body>
+</html>

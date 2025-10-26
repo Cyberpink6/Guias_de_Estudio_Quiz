@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz 4</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+        }
+        
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 15px;
+        }
+        
+        .intro {
+            background-color: #e8f4fc;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+        
+        .question {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+        }
+        
+        .question h3 {
+            margin-top: 0;
+            color: #2c3e50;
+        }
+        
+        .options {
+            margin: 15px 0;
+        }
+        
+        .option {
+            margin: 10px 0;
+            padding: 10px;
+            background-color: white;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .option:hover {
+            background-color: #f0f8ff;
+            border-color: #3498db;
+        }
+        
+        .option.selected {
+            background-color: #d4edda;
+            border-color: #28a745;
+        }
+        
+        .option.incorrect {
+            background-color: #f8d7da;
+            border-color: #dc3545;
+        }
+        
+        button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            display: block;
+            margin: 30px auto;
+            transition: background-color 0.3s;
+        }
+        
+        button:hover {
+            background-color: #2980b9;
+        }
+        
+        .result {
+            display: none;
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #e8f4fc;
+            border-radius: 8px;
+        }
+        
+        .score {
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            margin: 20px 0;
+            color: #2c3e50;
+        }
+        
+        .feedback {
+            margin-top: 20px;
+        }
+        
+        .correct-answer {
+            color: #28a745;
+            font-weight: bold;
+        }
+        
+        .incorrect-answer {
+            color: #dc3545;
+            font-weight: bold;
+        }
+        
+        .explanation {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: white;
+            border-radius: 5px;
+            border-left: 4px solid #3498db;
+        }
+        
+        .multiple-note {
+            font-size: 14px;
+            color: #666;
+            font-style: italic;
+            margin-top: 5px;
+        }
+        
+        .grade-description {
+            text-align: center;
+            font-size: 18px;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        
+        .grade-2 {
+            color: #dc3545;
+        }
+        
+        .grade-3 {
+            color: #fd7e14;
+        }
+        
+        .grade-4 {
+            color: #20c997;
+        }
+        
+        .grade-5 {
+            color: #198754;
+        }
+        
+        .correct-feedback {
+            margin-top: 10px;
+            padding: 8px;
+            background-color: #d4edda;
+            border-radius: 5px;
+            border-left: 4px solid #28a745;
+        }
+        
+        .incorrect-feedback {
+            margin-top: 10px;
+            padding: 8px;
+            background-color: #f8d7da;
+            border-radius: 5px;
+            border-left: 4px solid #dc3545;
+        }
+        
+        .answer-list {
+            margin-top: 5px;
+            padding-left: 20px;
+        }
+        
+        .answer-item {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Inteligencia Artificial: Conferencia 4 - Introducción a los sistemas basados en conocimiento (SBC). Sistemas basados en reglas</h1>
+        <div class="intro">
+            <a href="Conferencia1.html"><p>Ir al Quiz 1</p></a>
+            <a href="Conferencia2.html"><p>Ir al Quiz 2</p></a>
+            <a href="Conferencia3.html"><p>Ir al Quiz 3</p></a>
+        </div>
+
+        <form id="quiz-form">
+            <!-- Pregunta 1 -->
+            <div class="question">
+                <h3>1. ¿Cuáles de las siguientes son características fundamentales que distinguen a los Sistemas Basados en Conocimiento (SBC)?</h3>
+                <div class="options">
+                    <div class="option" data-correct="true">
+                        <input type="checkbox" id="q1a" name="q1">
+                        <label for="q1a">Separación del conocimiento de cómo este es usado</label>
+                    </div>
+                    <div class="option" data-correct="true">
+                        <input type="checkbox" id="q1b" name="q1">
+                        <label for="q1b">Uso de conocimiento muy específico del dominio</label>
+                    </div>
+                    <div class="option" data-correct="true">
+                        <input type="checkbox" id="q1c" name="q1">
+                        <label for="q1c">Naturaleza heurística del conocimiento empleado</label>
+                    </div>
+                    <div class="option" data-correct="false">
+                        <input type="checkbox" id="q1d" name="q1">
+                        <label for="q1d">Siempre requieren analizar completitud de las soluciones</label>
+                    </div>
+                </div>
+                <p class="multiple-note">Esta pregunta puede tener varias respuestas correctas.</p>
+            </div>
+            
+            <!-- Pregunta 2 -->
+            <div class="question">
+                <h3>2. Respecto a las ventajas de los SBC, ¿cuáles afirmaciones son correctas?</h3>
+                <div class="options">
+                    <div class="option" data-correct="true">
+                        <input type="checkbox" id="q2a" name="q2">
+                        <label for="q2a">Amplia distribución de experticia escasa</label>
+                    </div>
+                    <div class="option" data-correct="true">
+                        <input type="checkbox" id="q2b" name="q2">
+                        <label for="q2b">Consistencia en las respuestas</label>
+                    </div>
+                    <div class="option" data-correct="true">
+                        <input type="checkbox" id="q2c" name="q2">
+                        <label for="q2c">Capacidad de explicar sus soluciones</label>
+                    </div>
+                    <div class="option" data-correct="false">
+                        <input type="checkbox" id="q2d" name="q2">
+                        <label for="q2d">Siempre proporcionan respuestas correctas</label>
+                    </div>
+                </div>
+                <p class="multiple-note">Esta pregunta puede tener varias respuestas correctas.</p>
+            </div>
+            
+            <!-- Pregunta 3 -->
+            <div class="question">
+                <h3>3. Sobre la estructura de los SBC desde la perspectiva del ingeniero de conocimientos, ¿cuáles componentes son correctos?</h3>
+                <div class="options">
+                    <div class="option" data-correct="true">
+                        <input type="checkbox" id="q3a" name="q3">
+                        <label for="q3a">Base de Conocimientos (BC) y Máquina de Inferencia (MI)</label>
+                    </div>
+                    <div class="option" data-correct="true">
+                        <input type="checkbox" id="q3b" name="q3">
+                        <label for="q3b">Shell de desarrollo con herramienta de adquisición del conocimiento</label>
+                    </div>
+                    <div class="option" data-correct="false">
+                        <input type="checkbox" id="q3c" name="q3">
+                        <label for="q3c">Solo el programa inteligente como caja negra</label>
+                    </div>
+                    <div class="option" data-correct="true">
+                        <input type="checkbox" id="q3d" name="q3">
+                        <label for="q3d">Base de casos de prueba para validar la BC</label>
+                    </div>
+                </div>
+                <p class="multiple-note">Esta pregunta puede tener varias respuestas correctas.</p>
+            </div>
+            
+            <!-- Pregunta 4 -->
+            <div class="question">
+                <h3>4. En relación con los Sistemas Basados en Reglas (SBR), ¿cuáles afirmaciones son verdaderas?</h3>
+                <div class="options">
+                    <div class="option" data-correct="true">
+                        <input type="checkbox" id="q4a" name="q4">
+                        <label for="q4a">Utilizan reglas de producción con formato IF-THEN</label>
+                    </div>
+                    <div class="option" data-correct="true">
+                        <input type="checkbox" id="q4b" name="q4">
+                        <label for="q4b">Pueden usar encadenamiento hacia adelante o hacia atrás</label>
+                    </div>
+                    <div class="option" data-correct="false">
+                        <input type="checkbox" id="q4c" name="q4">
+                        <label for="q4c">El encadenamiento hacia adelante es siempre más eficiente</label>
+                    </div>
+                    <div class="option" data-correct="true">
+                        <input type="checkbox" id="q4d" name="q4">
+                        <label for="q4d">Ofrecen modularidad y naturalidad en la representación</label>
+                    </div>
+                </div>
+                <p class="multiple-note">Esta pregunta puede tener varias respuestas correctas.</p>
+            </div>
+            
+            <!-- Pregunta 5 -->
+            <div class="question">
+                <h3>5. ¿Cuáles de las siguientes son categorías de aplicación de los SBC?</h3>
+                <div class="options">
+                    <div class="option" data-correct="true">
+                        <input type="checkbox" id="q5a" name="q5">
+                        <label for="q5a">Diagnóstico e Interpretación</label>
+                    </div>
+                    <div class="option" data-correct="true">
+                        <input type="checkbox" id="q5b" name="q5">
+                        <label for="q5b">Diseño y Planificación</label>
+                    </div>
+                    <div class="option" data-correct="true">
+                        <input type="checkbox" id="q5c" name="q5">
+                        <label for="q5c">Monitoreo y Control</label>
+                    </div>
+                    <div class="option" data-correct="false">
+                        <input type="checkbox" id="q5d" name="q5">
+                        <label for="q5d">Programación de bajo nivel</label>
+                    </div>
+                </div>
+                <p class="multiple-note">Esta pregunta puede tener varias respuestas correctas.</p>
+            </div>
+            
+            <!-- Pregunta 6 -->
+            <div class="question">
+                <h3>6. Sobre las direcciones de búsqueda en SBR, ¿cuáles afirmaciones son correctas?</h3>
+                <div class="options">
+                    <div class="option" data-correct="true">
+                        <input type="checkbox" id="q6a" name="q6">
+                        <label for="q6a">El encadenamiento hacia adelante comienza con los datos</label>
+                    </div>
+                    <div class="option" data-correct="true">
+                        <input type="checkbox" id="q6b" name="q6">
+                        <label for="q6b">El encadenamiento hacia atrás comienza con una conclusión</label>
+                    </div>
+                    <div class="option" data-correct="false">
+                        <input type="checkbox" id="q6c" name="q6">
+                        <label for="q6c">El backward chaining es mejor cuando hay muchos datos de entrada</label>
+                    </div>
+                    <div class="option" data-correct="true">
+                        <input type="checkbox" id="q6d" name="q6">
+                        <label for="q6d">El forward chaining es apropiado para monitoreo en tiempo real</label>
+                    </div>
+                </div>
+                <p class="multiple-note">Esta pregunta puede tener varias respuestas correctas.</p>
+            </div>
+            
+            <button type="button" id="submit-btn">Evaluar Respuestas</button>
+        </form>
+        
+        <div class="result" id="result">
+            <div class="score" id="score"></div>
+            <div class="grade-description" id="grade-description"></div>
+            
+            <div class="feedback">
+                <h3>Retroalimentación:</h3>
+                <div id="feedback-content"></div>
+            </div>
+            <button type="button" class="restart-btn" id="restart-btn">Reiniciar Quiz</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+    // Añadir interactividad a las opciones
+    const options = document.querySelectorAll('.option');
+    options.forEach(option => {
+        option.addEventListener('click', function() {
+            const checkbox = this.querySelector('input[type="checkbox"]');
+            checkbox.checked = !checkbox.checked;
+            
+            if (checkbox.checked) {
+                this.classList.add('selected');
+            } else {
+                this.classList.remove('selected');
+            }
+        });
+    });
+    
+    // Manejar el envío del formulario
+    document.getElementById('submit-btn').addEventListener('click', function() {
+        evaluateQuiz();
+    });
+    
+    // Manejar el botón de reinicio
+    document.getElementById('restart-btn').addEventListener('click', function() {
+        resetQuiz();
+    });
+    
+    function evaluateQuiz() {
+        const totalQuestions = 6;
+        const questionValue = 1; // Cada pregunta vale 1 punto
+        let totalScore = 0;
+        let feedbackHTML = '';
+        
+        // Calcular puntuación para cada pregunta
+        const questions = document.querySelectorAll('.question');
+        
+        questions.forEach((question, index) => {
+            const options = question.querySelectorAll('.option');
+            const questionNumber = index + 1;
+            
+            // Contar cuántas opciones correctas tiene la pregunta
+            let totalCorrect = 0;
+            options.forEach(option => {
+                if (option.getAttribute('data-correct') === 'true') {
+                    totalCorrect++;
+                }
+            });
+            
+            // Valor de cada opción correcta
+            const optionValue = questionValue / totalCorrect;
+            
+            // Contar opciones correctas e incorrectas seleccionadas
+            let correctSelected = 0;
+            let incorrectSelected = 0;
+            
+            // Identificar opciones correctas e incorrectas
+            let correctOptions = [];
+            let incorrectOptions = [];
+            
+            // Calcular puntuación de la pregunta
+            let questionScore = 0;
+            options.forEach(option => {
+                const isCorrect = option.getAttribute('data-correct') === 'true';
+                const isSelected = option.querySelector('input').checked;
+                const optionText = option.querySelector('label').textContent;
+                
+                if (isCorrect) {
+                    correctOptions.push(optionText);
+                    if (isSelected) {
+                        correctSelected++;
+                        questionScore += optionValue;
+                    }
+                } else {
+                    incorrectOptions.push(optionText);
+                    if (isSelected) {
+                        incorrectSelected++;
+                    }
+                }
+            });
+            
+            // Asegurar que la puntuación no exceda el valor máximo de la pregunta
+            questionScore = Math.min(questionScore, questionValue);
+            totalScore += questionScore;
+            
+            // Generar retroalimentación para esta pregunta
+            feedbackHTML += `<div class="explanation">
+                <p><strong>Pregunta ${questionNumber}:</strong></p>
+                <p>Respuestas correctas seleccionadas: ${correctSelected} de ${totalCorrect}</p>
+                <p>Respuestas incorrectas seleccionadas: ${incorrectSelected}</p>
+                <p class="correct-answer">Puntuación: ${(questionScore).toFixed(2)} puntos (de ${questionValue})</p>
+                
+                <div class="correct-feedback">
+                    <p><strong>Respuestas correctas:</strong></p>
+                    <div class="answer-list">`;
+            
+            // Mostrar las respuestas correctas
+            correctOptions.forEach(option => {
+                feedbackHTML += `<div class="answer-item">✓ ${option}</div>`;
+            });
+            
+            feedbackHTML += `</div></div>`;
+            
+            // Mostrar las respuestas incorrectas si hay alguna seleccionada
+            if (incorrectSelected > 0) {
+                feedbackHTML += `<div class="incorrect-feedback">
+                    <p><strong>Respuestas incorrectas seleccionadas:</strong></p>
+                    <div class="answer-list">`;
+                
+                options.forEach(option => {
+                    const isCorrect = option.getAttribute('data-correct') === 'true';
+                    const isSelected = option.querySelector('input').checked;
+                    const optionText = option.querySelector('label').textContent;
+                    
+                    if (!isCorrect && isSelected) {
+                        feedbackHTML += `<div class="answer-item">✗ ${optionText}</div>`;
+                    }
+                });
+                
+                feedbackHTML += `</div></div>`;
+            }
+            
+            // Mostrar respuestas correctas no seleccionadas si hay alguna
+            let missedCorrect = false;
+            options.forEach(option => {
+                const isCorrect = option.getAttribute('data-correct') === 'true';
+                const isSelected = option.querySelector('input').checked;
+                const optionText = option.querySelector('label').textContent;
+                
+                if (isCorrect && !isSelected) {
+                    if (!missedCorrect) {
+                        feedbackHTML += `<div class="incorrect-feedback">
+                            <p><strong>Respuestas correctas no seleccionadas:</strong></p>
+                            <div class="answer-list">`;
+                        missedCorrect = true;
+                    }
+                    feedbackHTML += `<div class="answer-item">? ${optionText}</div>`;
+                }
+            });
+            
+            if (missedCorrect) {
+                feedbackHTML += `</div></div>`;
+            }
+            
+            feedbackHTML += `</div>`;
+        });
+        
+        // Calcular nota final (escala 2-5) y redondear según criterios
+        let finalGrade;
+        if (totalScore < 1.2) { // Menos del 20% de respuestas correctas
+            finalGrade = 2;
+        } else {
+            // Escalar de 0-6 a 2-5
+            const calculatedGrade = 2 + (totalScore * 0.5);
+            
+            // Redondear según criterios especificados
+            if (calculatedGrade >= 4.5) {
+                finalGrade = 5;
+            } else if (calculatedGrade >= 3.5) {
+                finalGrade = 4;
+            } else if (calculatedGrade >= 2.5) {
+                finalGrade = 3;
+            } else {
+                finalGrade = 2;
+            }
+        }
+        
+        // Determinar descripción de la nota
+        let gradeDescription = "";
+        let gradeClass = "";
+        switch(finalGrade) {
+            case 2:
+                gradeDescription = "Desaprobado";
+                gradeClass = "grade-2";
+                break;
+            case 3:
+                gradeDescription = "Bien";
+                gradeClass = "grade-3";
+                break;
+            case 4:
+                gradeDescription = "Muy Bien";
+                gradeClass = "grade-4";
+                break;
+            case 5:
+                gradeDescription = "Excelente";
+                gradeClass = "grade-5";
+                break;
+        }
+        
+        // Mostrar resultados
+        document.getElementById('score').textContent = `Nota Final: ${finalGrade}`;
+        document.getElementById('score').className = `score ${gradeClass}`;
+        document.getElementById('grade-description').textContent = gradeDescription;
+        document.getElementById('grade-description').className = `grade-description ${gradeClass}`;
+        document.getElementById('feedback-content').innerHTML = feedbackHTML;
+        document.getElementById('result').style.display = 'block';
+        
+        // Desplazarse a los resultados
+        document.getElementById('result').scrollIntoView({ behavior: 'smooth' });
+    }
+    
+    function resetQuiz() {
+        // Limpiar todas las selecciones
+        const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+        checkboxes.forEach(checkbox => {
+            checkbox.checked = false;
+        });
+        
+        // Quitar clases de selección
+        const options = document.querySelectorAll('.option');
+        options.forEach(option => {
+            option.classList.remove('selected');
+            option.classList.remove('incorrect');
+        });
+        
+        // Ocultar resultados
+        document.getElementById('result').style.display = 'none';
+        
+        // Desplazarse al inicio
+        window.scrollTo(0, 0);
+    }
+});
+    </script>
+</body>
+</html>

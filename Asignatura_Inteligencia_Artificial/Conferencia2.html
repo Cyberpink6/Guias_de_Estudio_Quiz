@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz 2</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+        }
+        
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 15px;
+        }
+        
+        .intro {
+            background-color: #e8f4fc;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+        
+        .question {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+        }
+        
+        .question h3 {
+            margin-top: 0;
+            color: #2c3e50;
+        }
+        
+        .options {
+            margin: 15px 0;
+        }
+        
+        .option {
+            margin: 10px 0;
+            padding: 10px;
+            background-color: white;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .option:hover {
+            background-color: #f0f8ff;
+            border-color: #3498db;
+        }
+        
+        .option.selected {
+            background-color: #d4edda;
+            border-color: #28a745;
+        }
+        
+        .option.incorrect {
+            background-color: #f8d7da;
+            border-color: #dc3545;
+        }
+        
+        button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            display: block;
+            margin: 30px auto;
+            transition: background-color 0.3s;
+        }
+        
+        button:hover {
+            background-color: #2980b9;
+        }
+        
+        .result {
+            display: none;
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #e8f4fc;
+            border-radius: 8px;
+        }
+        
+        .score {
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            margin: 20px 0;
+            color: #2c3e50;
+        }
+        
+        .feedback {
+            margin-top: 20px;
+        }
+        
+        .correct-answer {
+            color: #28a745;
+            font-weight: bold;
+        }
+        
+        .incorrect-answer {
+            color: #dc3545;
+            font-weight: bold;
+        }
+        
+        .explanation {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: white;
+            border-radius: 5px;
+            border-left: 4px solid #3498db;
+        }
+        
+        .multiple-note {
+            font-size: 14px;
+            color: #666;
+            font-style: italic;
+            margin-top: 5px;
+        }
+        
+        .grade-description {
+            text-align: center;
+            font-size: 18px;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        
+        .grade-2 {
+            color: #dc3545;
+        }
+        
+        .grade-3 {
+            color: #fd7e14;
+        }
+        
+        .grade-4 {
+            color: #20c997;
+        }
+        
+        .grade-5 {
+            color: #198754;
+        }
+        
+        .correct-feedback {
+            margin-top: 10px;
+            padding: 8px;
+            background-color: #d4edda;
+            border-radius: 5px;
+            border-left: 4px solid #28a745;
+        }
+        
+        .incorrect-feedback {
+            margin-top: 10px;
+            padding: 8px;
+            background-color: #f8d7da;
+            border-radius: 5px;
+            border-left: 4px solid #dc3545;
+        }
+        
+        .answer-list {
+            margin-top: 5px;
+            padding-left: 20px;
+        }
+        
+        .answer-item {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Inteligencia Artificial: Conferencia 2 - Métodos heurísticos de solución de problemas</h1>
+        <div class="intro">
+            <a href="Conferencia1.html"><p>Ir al Quiz 1</p></a>
+            <a href="Conferencia3.html"><p>Ir al Quiz 3</p></a>
+            <a href="Conferencia4.html"><p>Ir al Quiz 4</p></a>
+        </div>
+
+        <form id="quiz-form">
+            <!-- Pregunta 1 -->
+            <div class="question">
+                <h3>1. Según la conferencia, ¿cuáles de las siguientes afirmaciones sobre las heurísticas son correctas?</h3>
+                <div class="options">
+                    <div class="option" data-correct="true">
+                        <input type="checkbox" id="q1a" name="q1">
+                        <label for="q1a">Son reglas que limitan drásticamente la búsqueda en grandes espacios de estados</label>
+                    </div>
+                    <div class="option" data-correct="true">
+                        <input type="checkbox" id="q1b" name="q1">
+                        <label for="q1b">No garantizan encontrar siempre la solución óptima</label>
+                    </div>
+                    <div class="option" data-correct="false">
+                        <input type="checkbox" id="q1c" name="q1">
+                        <label for="q1c">Son métodos débiles por su alta generalidad</label>
+                    </div>
+                    <div class="option" data-correct="true">
+                        <input type="checkbox" id="q1d" name="q1">
+                        <label for="q1d">Pueden conducir a errores debido a su flexibilidad inherente</label>
+                    </div>
+                </div>
+                <p class="multiple-note">Esta pregunta puede tener varias respuestas correctas.</p>
+            </div>
+            
+            <!-- Pregunta 2 -->
+            <div class="question">
+                <h3>2. Sobre las funciones de evaluación heurística, ¿cuáles afirmaciones son verdaderas?</h3>
+                <div class="options">
+                    <div class="option" data-correct="true">
+                        <input type="checkbox" id="q2a" name="q2">
+                        <label for="q2a">Una heurística admisible nunca sobrestima el costo de alcanzar el objetivo</label>
+                    </div>
+                    <div class="option" data-correct="true">
+                        <input type="checkbox" id="q2b" name="q2">
+                        <label for="q2b">Una heurística más informada expande menos nodos que una menos informada</label>
+                    </div>
+                    <div class="option" data-correct="false">
+                        <input type="checkbox" id="q2c" name="q2">
+                        <label for="q2c">Es mejor usar una función heurística con valores más bajos</label>
+                    </div>
+                    <div class="option" data-correct="true">
+                        <input type="checkbox" id="q2d" name="q2">
+                        <label for="q2d">h(n) = max(h1(n), h2(n), ..., hm(n)) domina a las heurísticas individuales</label>
+                    </div>
+                </div>
+                <p class="multiple-note">Esta pregunta puede tener varias respuestas correctas.</p>
+            </div>
+            
+            <!-- Pregunta 3 -->
+            <div class="question">
+                <h3>3. Respecto al algoritmo A*, ¿cuáles de las siguientes afirmaciones son correctas?</h3>
+                <div class="options">
+                    <div class="option" data-correct="true">
+                        <input type="checkbox" id="q3a" name="q3">
+                        <label for="q3a">Utiliza f(n) = g(n) + h(n) como función de evaluación</label>
+                    </div>
+                    <div class="option" data-correct="true">
+                        <input type="checkbox" id="q3b" name="q3">
+                        <label for="q3b">Es óptimo y completo si h(n) es admisible</label>
+                    </div>
+                    <div class="option" data-correct="false">
+                        <input type="checkbox" id="q3c" name="q3">
+                        <label for="q3c">A* con h=0 se convierte en búsqueda primero en profundidad</label>
+                    </div>
+                    <div class="option" data-correct="true">
+                        <input type="checkbox" id="q3d" name="q3">
+                        <label for="q3d">La distancia aérea es un ejemplo de heurística admisible</label>
+                    </div>
+                </div>
+                <p class="multiple-note">Esta pregunta puede tener varias respuestas correctas.</p>
+            </div>
+            
+            <!-- Pregunta 4 -->
+            <div class="question">
+                <h3>4. Sobre el algoritmo de Ascensión de Colinas (Hill Climbing), ¿cuáles afirmaciones son verdaderas?</h3>
+                <div class="options">
+                    <div class="option" data-correct="true">
+                        <input type="checkbox" id="q4a" name="q4">
+                        <label for="q4a">Es útil cuando el camino hacia la solución es irrelevante</label>
+                    </div>
+                    <div class="option" data-correct="true">
+                        <input type="checkbox" id="q4b" name="q4">
+                        <label for="q4b">No permite retroceso a alternativas previamente suspendidas</label>
+                    </div>
+                    <div class="option" data-correct="false">
+                        <input type="checkbox" id="q4c" name="q4">
+                        <label for="q4c">Es óptimo y completo para todos los problemas</label>
+                    </div>
+                    <div class="option" data-correct="true">
+                        <input type="checkbox" id="q4d" name="q4">
+                        <label for="q4d">Es una variación de la búsqueda primero en profundidad con función heurística</label>
+                    </div>
+                </div>
+                <p class="multiple-note">Esta pregunta puede tener varias respuestas correctas.</p>
+            </div>
+            
+            <!-- Pregunta 5 -->
+            <div class="question">
+                <h3>5. Según la comparativa entre métodos heurísticos presentada en la conferencia, ¿cuáles afirmaciones son correctas?</h3>
+                <div class="options">
+                    <div class="option" data-correct="true">
+                        <input type="checkbox" id="q5a" name="q5">
+                        <label for="q5a">Best-First no es óptimo ni completo</label>
+                    </div>
+                    <div class="option" data-correct="true">
+                        <input type="checkbox" id="q5b" name="q5">
+                        <label for="q5b">A* es óptimo y completo si la heurística es admisible</label>
+                    </div>
+                    <div class="option" data-correct="true">
+                        <input type="checkbox" id="q5c" name="q5">
+                        <label for="q5c">Hill Climbing no es óptimo ni completo</label>
+                    </div>
+                    <div class="option" data-correct="false">
+                        <input type="checkbox" id="q5d" name="q5">
+                        <label for="q5d">IDA* siempre es mejor que A* en términos de eficiencia</label>
+                    </div>
+                </div>
+                <p class="multiple-note">Esta pregunta puede tener varias respuestas correctas.</p>
+            </div>
+            
+            <button type="button" id="submit-btn">Evaluar Respuestas</button>
+        </form>
+        
+        <div class="result" id="result">
+            <div class="score" id="score"></div>
+            <div class="grade-description" id="grade-description"></div>
+            
+            <div class="feedback">
+                <h3>Retroalimentación:</h3>
+                <div id="feedback-content"></div>
+            </div>
+            <button type="button" class="restart-btn" id="restart-btn">Reiniciar Quiz</button>
+        </div>
+    </div>
+
+    <script src="script1.obfuscated.js"></script>
+</body>
+</html>
